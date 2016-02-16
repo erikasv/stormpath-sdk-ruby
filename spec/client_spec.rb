@@ -628,6 +628,78 @@ properties
     end
   end
 
+  describe '#organizations' do
+    context 'given a collection' do
+      let(:organizations) do
+        test_api_client.organizations
+      end
+
+      let(:organization) do
+        organizations.create(
+            name: 'Client Organization Test',
+            name_key: 'Client Organization Test',
+            description: 'A test description'
+        )
+      end
+
+      it 'returns the collection' do
+        expect(organizations).to be_kind_of(Stormpath::Resource::Collection)
+        expect(organizations.count).to be >= 1
+      end
+
+      after do
+        organization.delete
+      end
+    end
+
+    context 'given a collection with a limit' do
+      let!(:organization_1) do
+        test_api_client.organizations.create name: random_organization_name(1), name_key: random_organization_name(1)
+      end
+
+      let!(:organization_2) do
+        test_api_client.organizations.create name: random_organization_name(2), name_key: random_organization_name(2)
+      end
+
+      after do
+        organization_1.delete if organization_1
+        organization_2.delete if organization_2
+      end
+
+      it 'should retrieve the number of organizations described with the limit' do
+        expect(test_api_client.organizations.count).to be >= 2
+      end
+    end
+
+    describe '.create' do
+
+      let(:organization_name) { random_organization_name }
+
+      let(:organization_attributes) do
+        {
+            name: organization_name,
+            name_key: organization_name,
+            description: 'A test description'
+        }
+      end
+
+      let(:organization) do
+        test_api_client.organizations.create organization_attributes
+      end
+
+      it 'creates an organization' do
+        expect(organization).to be
+        expect(organization.name).to eq(organization_attributes[:name])
+        expect(organization.name_key).to eq(organization_attributes[:name_key])
+        expect(organization.description).to eq(organization_attributes[:description])
+      end
+
+      after do
+        organization.delete
+      end
+    end
+  end
+
   describe "#organization_account_store_mappings" do
     let(:organization) do
       test_api_client.organizations.create name: 'test_organization',
