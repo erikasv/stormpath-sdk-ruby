@@ -127,8 +127,8 @@ module Stormpath
       end
     end
 
-    def random_name_key(suffix=nil)
-      "#{random_string}-nameKey-#{suffix}"
+    def random_name_key(suffix='test')
+      "#{random_string}-namekey-#{suffix}"
     end
   end
 end
