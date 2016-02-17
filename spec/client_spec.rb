@@ -644,11 +644,11 @@ properties
 
       it 'returns the collection' do
         expect(organizations).to be_kind_of(Stormpath::Resource::Collection)
-        expect(organizations.count).to be >= 1
+        expect(test_api_client.organizations.count).to be >= 1
       end
 
       after do
-        organization.delete
+        organization.delete if organization
       end
     end
 
