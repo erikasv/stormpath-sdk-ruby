@@ -636,7 +636,7 @@ properties
 
       let(:organization) do
         organizations.create(
-            name: 'Client Organization Test',
+            name: random_organization_name,
             name_key: random_name_key,
             description: 'A test description'
         )
