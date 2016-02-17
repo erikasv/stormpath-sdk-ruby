@@ -654,11 +654,11 @@ properties
 
     context 'given a collection with a limit' do
       let!(:organization_1) do
-        test_api_client.organizations.create name: random_organization_name(1), name_key: random_name_key
+        test_api_client.organizations.create name: random_organization_name(1), name_key: random_name_key(1)
       end
 
       let!(:organization_2) do
-        test_api_client.organizations.create name: random_organization_name(2), name_key: random_name_key
+        test_api_client.organizations.create name: random_organization_name(2), name_key: random_name_key(2)
       end
 
       after do
