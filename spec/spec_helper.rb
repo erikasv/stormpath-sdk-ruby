@@ -126,6 +126,10 @@ module Stormpath
         UUID.method(:random_create).call.to_s[0..9]
       end
     end
+
+    def random_name_key
+      "#{random_string}-name-key"
+    end
   end
 end
 

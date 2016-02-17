@@ -637,7 +637,7 @@ properties
       let(:organization) do
         organizations.create(
             name: 'Client Organization Test',
-            name_key: 'Client Organization Test',
+            name_key: random_name_key,
             description: 'A test description'
         )
       end
@@ -654,11 +654,11 @@ properties
 
     context 'given a collection with a limit' do
       let!(:organization_1) do
-        test_api_client.organizations.create name: random_organization_name(1), name_key: random_organization_name(1)
+        test_api_client.organizations.create name: random_organization_name(1), name_key: random_name_key
       end
 
       let!(:organization_2) do
-        test_api_client.organizations.create name: random_organization_name(2), name_key: random_organization_name(2)
+        test_api_client.organizations.create name: random_organization_name(2), name_key: random_name_key
       end
 
       after do
@@ -678,7 +678,7 @@ properties
       let(:organization_attributes) do
         {
             name: organization_name,
-            name_key: organization_name,
+            name_key: random_name_key,
             description: 'A test description'
         }
       end
