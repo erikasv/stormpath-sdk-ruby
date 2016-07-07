@@ -362,6 +362,14 @@ describe Stormpath::Resource::Collection, :vcr do
       it 'should search accounts by username with asterisk at the beginning and the end' do
         expect(directory.accounts.search(username: "*pic*", email: "*enterprise*").count).to eq(1)
       end
+
+      it 'should search accounts by custom data' do
+        account.custom_data['someKey'] = 'value'
+        account.save
+        reloaded_account = directory.accounts.get(account.href)
+        expect(reloaded_account.custom_data['someKey']).to eq('value')
+        expect(directory.accounts.search(:'customData.someKey' => 'value').count).to eq(1)
+      end
     end
 
   end
