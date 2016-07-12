@@ -18,6 +18,10 @@ describe Stormpath::Oauth::AccessTokenAuthenticationResult, :vcr do
   before { account }
   after { account.delete }
 
+  # Mock token expiration so we can have consistent
+  # recordings of JWT token specs with VCR
+  before { allow(JWT::Verify).to receive(:verify_expiration).and_return(nil) }
+
   it 'instances should expose a method to get an account' do
     expect(jwt_authentication_result.account).to eq(account)
   end
